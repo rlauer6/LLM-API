@@ -1,0 +1,42 @@
+package LLM::API::Content;
+
+use strict;
+use warnings;
+
+use English qw(-no_match_vars);
+use Data::Dumper;
+
+our @ACCESSORS = qw(
+  data
+  id
+  input
+  name
+  redacted_thinking
+  text
+  thinking
+  type
+);
+
+__PACKAGE__->mk_accessors(@ACCESSORS);
+
+our $VERSION = '1.0.0';
+
+use parent qw(Class::Accessor::Fast);
+
+########################################################################
+sub new {
+########################################################################
+  my ( $class, $content ) = @_;
+
+  $content = ref $content ? $content : decode_json($content);
+
+  my $self = $class->SUPER::new();
+
+  foreach my $attr (@ACCESSORS) {
+    $self->set( $attr, $content->[0]->{$attr} );
+  }
+
+  return $self;
+}
+
+1;

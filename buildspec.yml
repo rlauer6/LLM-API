@@ -1,0 +1,28 @@
+---
+project:
+  description: LLM::API
+  author:
+    name: Rob Lauer
+    mailto: rclauer@gmail.com
+pm-module: LLM::API
+min-perl-version: 5.010
+dependencies:
+  requires: requires
+  test-requires: test-requires
+path:
+  pm-module: lib
+  exe-files: bin
+  tests: t
+extra-files:
+  - ChangeLog
+  - share:
+      - README.md
+resources:
+  bugtracker:
+    mailto: rclauer@gmail.com
+    web: https://github.com/rlauer6/LLM-API/issues
+  homepage: https://github.com/rlauer6/LLM-API
+  repository:
+    type: git
+    url: git@github.com:rlauer6/LLM-API.git
+    web: https://github.com/rlauer6/LLM-API

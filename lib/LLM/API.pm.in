@@ -35,14 +35,18 @@ Readonly::Scalar our $LLM_COUNT_TOKENS_EP => 'messages/count_tokens';
 Readonly::Scalar our $LLM_COST_EP         => 'organizations/cost_report';
 Readonly::Scalar our $LLM_KEYS_EP         => 'organizations/api_keys';
 
-Readonly::Scalar our $LLM_MAX_TOKENS => 4096;
+Readonly::Scalar our $LLM_MAX_TOKENS => 8192;
 Readonly::Scalar our $LLM_VERSION    => '2023-06-01';
 Readonly::Scalar our $LLM_ROLE       => 'user';
 Readonly::Scalar our $LLM_TIMEOUT    => 300;
 
 Readonly::Scalar our $LLM_PRICING => {
-  'claude-sonnet-4-6'         => [ 3 / 1_000_000, 15 / 1_000_000 ],
-  'claude-haiku-4-5-20251001' => [ 1 / 1_000_000, 5 / 1_000_000 ],
+  'claude-sonnet-4-6'         => [ 3 / 1_000_000,  15 / 1_000_000 ],
+  'claude-haiku-4-5-20251001' => [ 1 / 1_000_000,  5 / 1_000_000 ],
+  'claude-sonnet-5'           => [ 3 / 1_000_000,  15 / 1_000_000 ],  # see note below
+  'claude-opus-4-8'           => [ 5 / 1_000_000,  25 / 1_000_000 ],
+  'claude-fable-5'            => [ 10 / 1_000_000, 50 / 1_000_000 ],
+  'claude-mythos-5'           => [ 10 / 1_000_000, 50 / 1_000_000 ],
 };
 
 Readonly::Hash our %LLM_MEDIA_TYPES => (
@@ -724,8 +728,6 @@ the model.
 
 I<Note: Costs are expressed as fractional dollar amounts per single
 token (for example, 0.000003 for $3 per million).>
-
-=back
 
 =head2 rfc_3339
 

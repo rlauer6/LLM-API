@@ -29,7 +29,6 @@
 * [VERSION](#version)
 * [AUTHOR](#author)
 * [LICENSE](#license)
-* [POD ERRORS](#pod-errors)
 # NAME
 
 LLM::API - Anthropic API client for Claude language models
@@ -503,7 +502,7 @@ Anthropic pricing: [https://www.anthropic.com/pricing](https://www.anthropic.com
 
 # VERSION
 
-This documentation refers to version 1.0.0.
+This documentation refers to version 1.0.1.
 
 # AUTHOR
 
@@ -513,11 +512,3 @@ See the distribution metadata for author information.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
-
-# POD ERRORS
-
-Hey! **The above document had some coding errors, which are explained below:**
-
-- Around line 728:
-
-    &#x3d;back without =over

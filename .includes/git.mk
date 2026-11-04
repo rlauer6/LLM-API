@@ -14,6 +14,9 @@ RECOMMENDED_ARTIFACTS = \
      README.md \
      requires \
      test-requires \
+     suggests \
+     recommends \
+     test-requires \
      .gitignore \
      .includes/ \
      .prompts/
@@ -30,7 +33,10 @@ git: ## initializes a git repository and commits artifacts (NO_COMMIT=1 to stop 
 	  fi; \
 	done; \
 	changelog_files=$$(mktemp); trap 'rm -f $$changelog_files' EXIT; \
-	for a in $$(find . -type d -path "./.git" -prune -o -type f -print); do \
+	for a in $$(find . -type d \( \
+	    -name .git \
+	    -o -name local \
+	  \) -prune -o -type f -print); do \
 	  echo -e "\t* $${a#./}: new" >>$$changelog_files; \
 	done; \
 	sort $$changelog_files >>ChangeLog; \
@@ -39,3 +45,20 @@ git: ## initializes a git repository and commits artifacts (NO_COMMIT=1 to stop 
 	  commit -m 'BigBang'; \
 	fi
 
+repo: ## creates a new GitHub repository - make repo REPO=repo-name [PUBLIC= 1 REPO_DESCRIPTION="description..."]
+	@if [[ -z "$(GITHUB_ACTIONS)" ]]; then \
+	  echo "gha-aws is not available: cpan GitHub::Actions::AWS"; \
+	  exit 1; \
+	fi; \
+	if [[ -z "$$REPO" ]]; then \
+	  echo "usage: make repo REPO=repo-name [PUBLIC=1] [REPO_DESCRIPTION=\"description...\"]"; \
+	  exit 1; \
+	fi; \
+	if [[ -n "$$PUBLIC" ]]; then \
+	  PUBLIC="--public"; \
+	fi; \
+	if [[ -z "$$REPO_DESCRIPTION" ]]; then \
+	  REPO_DESCRIPTION="Created by CPAN::Maker::Bootstrapper"; \
+	fi; \
+	test -n "$$DRYRUN" && DRYRUN="--dryrun"; \
+	$(GITHUB_ACTIONS) $$PUBLIC $$DRYRUN --description "$$REPO_DESCRIPTION" --repo "$$REPO" create-repo
